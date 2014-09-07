@@ -32,12 +32,37 @@ However, the ISS and most spacecraft composed of aluminium plates, curves, and b
 The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA) \cite{•}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{•}
 %
 Section \ref{sec:model} derives the Jacobian matrices that map between the inputs to an induction coupler and the resultant forces. Section \ref{sec:movements} describes and simulates the necessary manoeuvres to move in each dof. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed.  
-\section{Physics Model}
-\label{sec:model}
+\section{Physics Model}\label{sec:model}
+Using the results of \cite{Paudel2013}, the force from a single rotating array of permanent magnets can be approximated as
+\missingfigure{picture of array models}
+\begin{equation}
+\label{eq:arrayForce}
+\textbf{F}_{PM} = A(g) \left(\textbf{a} \times \textbf{n} \right) \omega
+\end{equation}
+Where $A(g)$ is a function of the gap between the array and the conductive surface, $\textbf{a}$ is the spin axis of the array, \textbf{n} is surface normal vector and $\omega$ is the angular velocity of the array. 
+Similarly, the force from a single current-oscillating electromagnet is
+\begin{equation}
+\label{EMforce}
+\textbf{F}_{EM} = B(g)\textbf{n}i
+\end{equation}
+Where $B(g)$ is a function of the gap between the array and the conductive surface and $i$ is the RMS current through the electromagnet.
+%
+%The force on a conductive surface from a cyclic magnetic source 
+%\begin{equation}
+%\label{eq:sourcefield}
+%B = B^s e^{i\omega t}
+%\end{equation}
+%is given by 
+%\begin{equation}
+%\label{eq:ForceInt}
+%F^{ss} = \frac{w}{8\pi\mu_0}\int_{-\infty}^{\infty}\Gamma\left(\xi \right )\|B^s\left(\xi\right)\|d\xi
+%\end{equation}
+%here $B^s(\xi)$ is the Fourier transform of the static component of an oscillating source field  and $\Gamma(\xi)$ is a transmission function given in \cite{Paudel2013}. 
+The upshot of this model is that a mechanically rotating array of permanent magnets will generate a force  force approximately perpendicular to the surface. 
+
 \subsection{Permanent Magnets}
 \subsection{Electromagnets}
-\section{Movement Flavors}
-\label{sec:movements}
+\section{Movement Flavors}\label{sec:movements}
 \subsection{Planar Rotation}
 %Define 'planar torque as torque perpendicular to the plane
 \subsection{Planar Translation}
@@ -47,8 +72,7 @@ Section \ref{sec:model} derives the Jacobian matrices that map between the input
 %TODO Diagram
 \subsection{Perpendicular Rotation}
 %TODO Diagram
-\section{Experimental Verification}
-\label{sec:experiments}
+\section{Experimental Verification}\label{sec:experiments}
 \section{Conclusion}
 A robotic on-orbit service vehicle can use induction couplers can produce locomotive forces in all six rigid body degrees of freedom near a conductive surface. Rotating permanent-magnet arrays generate forces perpendicular to both their axes of rotation and the conductive surface. Current-oscillating electromagnets generate forces directly away from the surface. A pair of rotating arrays can produce $\hat{x}$ and $\hat{y}$ forces in the plane of the traversal surface. These two arrays can also produce torques in the $\hat{z}$ direction. This pair of arrays can take advantage of the surface geometry to generate forces in the $\hat{z}$ direction by generating shear forces along a non-flat surface whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. These maneuvers are demonstrated in simulations and verified on a low-friction testbed.  
 
