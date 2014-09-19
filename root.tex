@@ -28,7 +28,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 
 \title{\LARGE \bf
-Preparation of Papers for IEEE Sponsored Conferences \& Symposia*
+F*ing sweet title
 }
 
 
@@ -78,11 +78,11 @@ The induction coupler's ability to generate forces is state dependent: its force
 On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task. \cite{} \todo{cite papers on difficulty of OOS} 
 Just as on earth, large assets like the International Space Station (ISS) \label{def:ISS} or geostationary satellites experience wear and unexpected problems that require inspection, repair, or refuelling. \todo{cite paper about uses of OOS} These tasks are well suited for robots because it is less dangerous and expensive to send an inspection vehicle to geostationary orbit or outside the ISS than a human spacewalker. \todo{Is it worthwhile to mention the DARPA Phoenix project?} 
 %
-Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can physically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target.\todo{cite different systems.}Grappling has many potential risks in an uncertain, low-friction environment. Propellant is expensive and can damage sensitive targets. Cooperation is infeasible in many situations because most spacecraft did not launch with the necessary subsystems: spacecraft are not designed to be inspected or repaired by robots.
+Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can physically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target.\todo{cite different systems.} Grappling has many potential risks in an uncertain, low-friction environment. Propellant is expensive and can damage sensitive targets. Cooperation is infeasible in many situations because most spacecraft did not launch with the necessary subsystems: spacecraft are not designed to be inspected or repaired by robots.
 %
 However, the ISS and most spacecraft composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation.\todo{physics book citation}\cite{} These eddy-current forces have several terrestrial applications from trash separation \cite{} to mag-lev propulsion,\cite{} but have never been used in either a robotics or orbital context. An eddy-current based actuator called an induction coupler, can provide a completely new way to perform robotic locomotion and manipulation in space. 
 %
-The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA) \cite{•}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{•}
+The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA)\label{def:fea} \cite{•}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{•}
 %
 Section \ref{sec:model} derives the Jacobian matrices that map between the inputs to an induction coupler and the resultant forces. Section \ref{sec:movements} describes and simulates the necessary manoeuvres to move in each dof. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed.
   
@@ -102,19 +102,30 @@ Section \ref{sec:model} derives the Jacobian matrices that map between the input
 Paudel and Bird derived an analytical solution for the force from a single rotating array of permanent magnets near a flat conductor. \cite{Paudel2013}
 
 \begin{equation}
-%\label{eq:Paudel55}
-F^{ss} = \frac{w}{8\pi\mu_0} \int^{\infty}_{-\infty}\Gamma(\xi,g)|B^s(\xi,g)|^2 d\xi
+\label{eq:Paudel55}
+\textbf{F} = \frac{w}{8\pi\mu_0} \int^{\infty}_{-\infty}\Gamma(\xi,g)|B^s(\xi,g)|^2 d\xi
 \end{equation}
 %equation explanation.
 Where $\Gamma$ is a transmission function associated with the conductive surface and $B$ is the non-time-varying part of the array's magnetic field Fourier transformed with respect to $\hat{x}$.
 % 
- $\Gamma$ and $B$ are nonlinear functions of the system state. $\Gamma$ depends on the array's rotation frequency $\omega$, velocity $\textbf{v}$ and distance from the surface $g$. $B$ is a nonlinear function of $g$ as well.  
-
+ $\Gamma$ and $B$ are nonlinear functions of the system state. $\Gamma$ depends on the array's rotation frequency $\omega$, velocity $\textbf{v}$ and distance from the surface $g$. $B$ is a nonlinear function of $g$ as well. Even near a curved surface, the assumption of an infinite flat surface is valid for induction couplers because the operating gap is on the order of centimeters: very small compared to the curvatures of most target surfaces. 
+ 
+A geometric generalization of this force is imperative in order to dynamically model the actuation of a 6-DoF orbital inspector. Eddy-current forces act only in opposition to change in magnetic field, so the force net force will always act perpendicular to the array's spin axis. Thus, a 3D formulation of the force can be described by tilting the force plane along with $\hat{a}$. 
+%As the array tilts, $g$ goes from its minimum value when $\hat{\textbf{a}}$ lies in the plane of the surface, to infinity when $\hat{a}$ is perpendicular to the surface. $B$ is proportional to $\frac{1}{g^2}$ so the force will drop to zero when $\hat{\textbf{a}}$ is parallel to the surface. The cross product meets both the conditions on the direction and the magnitude of the force.   
 
 \begin{equation}
 \label{eq:arrayForce}
-\textbf{F}_{PM} = A(g) \left(\textbf{a} \times \textbf{n} \right) \omega
-\end{equation}
+\begin{split}
+\textbf{F} =  &F_z(g,\omega,\textbf{v}) \left(\hat{\textbf{a}} \times \hat{\textbf{n}} \right) \\
+			 + &F_y(g,\omega,\textbf{v}) \left(\hat{\textbf{a}} \times \hat{\textbf{n}} \right) \times \hat{\textbf{a}}
+ \end{split}
+ \end{equation}
+ 
+ $F_z$ and $F_y$ are the components of the planar force calculated in equation \ref{eq:Paudel55}
+ 
+ This statement of eddy-current forces is powerful because it is both analytical and general. The generality enables fast simulations of a 6-DoF inspection vehicle while the analytical nature will enable proveable statements about the systems stability.
+ 
+ 
 
 
 
