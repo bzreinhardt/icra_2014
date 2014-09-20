@@ -2,3 +2,6 @@
 *.pdf
 *.aux
 *.gz
+*.out
+*.do
+*.tdo
