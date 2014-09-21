@@ -63,11 +63,13 @@ The upshot of this model is that a mechanically rotating array of permanent magn
 \subsection{Permanent Magnets}
 \subsection{Electromagnets}
 \section{Movement Flavors}\label{sec:movements}
-\subsection{Planar Rotation}
-%Define 'planar torque as torque perpendicular to the plane
+This section describes how induction couplers can produce actuation forces and torques and the resultant translations and rotations in all six rigid body degrees of freedom. Each section presents an arrangement of spinning arrays, their control inputs, and a simulation to demonstrate the movement. 
 \subsection{Planar Translation}
+An inspection robot 
 %TODO Diagram
 %TODO Pseudocode for algorithm 
+\subsection{Planar Rotation}
+%Define 'planar torque as torque perpendicular to the plane
 \subsection{Perpendicular Translation}
 %TODO Diagram
 \subsection{Perpendicular Rotation}
@@ -78,5 +80,7 @@ A robotic on-orbit service vehicle can use induction couplers can produce locomo
 
 %An autonomous space vehicle can use these forces to crawl over the conductive surface of a target spacecraft without propellant or the risk associated with physical grappling. Rotating arrays of magnets produce planar forces and torques. These rotating arrays can also produce forces perpendicular to the surface by taking advantage of surface features such as curvature or edges. Electromagnets can produce force directly away from any surface and by coupling these forces, produce torques parallel to that surface. Dynamic simulations demonstrate each degree-of-freedom using an analytical force model and hardware demonstrations on a low-friction testbed verify the results. 
 %TODO future work - trajectory optimization, end effector design, kinematic simulation
-Future work will focus on two areas - adaptive controllers and movement planning. A robotic inspector will need adaptive controllers to account for induction coupler's strong dependence on poorly known parameters of the environment.  The inspector will also need to plan movements carefully because its ability to exert control with an induction coupler is based on both its state, the local geometry.      
+Future work will focus on two areas - adaptive controllers and movement planning. A robotic inspector will need adaptive controllers to account for induction coupler's strong dependence on poorly known parameters of the environment.  The inspector will also need to plan movements carefully because its ability to exert control with an induction coupler is based on both its state, the local geometry.  
+\bibliographystyle{plain}
+\bibliography{bibliography.bib}    
 \end{document}
