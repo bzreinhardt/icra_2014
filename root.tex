@@ -243,17 +243,51 @@ Using locally tangential forces, the inspector can control rotation about the $\
 
 
 \section{Experimental Demonstration}\label{sec:experiments}
+We constructed a prototype inspection vehicle with two spinning magnet arrays in order to demonstrate the four control approaches (planar translation, planar rotation, out-of-plane translation, out-of-plane rotation.) 
 
-\section{Conclusion}
-A robotic on-orbit service vehicle can use induction couplers can produce locomotive forces in all six rigid body degrees of freedom near a conductive surface. Rotating permanent-magnet arrays generate forces perpendicular to both their axes of rotation and the conductive surface. Current-oscillating electromagnets generate forces directly away from the surface. A pair of rotating arrays can produce $\hat{x}$ and $\hat{y}$ forces in the plane of the traversal surface. These two arrays can also produce torques in the $\hat{z}$ direction. This pair of arrays can take advantage of the surface geometry to generate forces in the $\hat{z}$ direction by generating shear forces along a non-flat surface whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. These maneuvers are demonstrated in simulations and verified on a low-friction testbed.  
+\textbf{Considerations} The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target surface would occult it from the tracking system. These constraints mean that the experiments only serve as a demonstration of the motion primitives for now, rather than a full model validation.
 
-%An autonomous space vehicle can use these forces to crawl over the conductive surface of a target spacecraft without propellant or the risk associated with physical grappling. Rotating arrays of magnets produce planar forces and torques. These rotating arrays can also produce forces perpendicular to the surface by taking advantage of surface features such as curvature or edges. Electromagnets can produce force directly away from any surface and by coupling these forces, produce torques parallel to that surface. Dynamic simulations demonstrate each degree-of-freedom using an analytical force model and hardware demonstrations on a low-friction testbed verify the results. 
-%TODO future work - trajectory optimization, end effector design, kinematic simulation
-Future work will focus on two areas - adaptive controllers and movement planning. A robotic inspector will need adaptive controllers to account for induction coupler's strong dependence on poorly known parameters of the environment.  The inspector will also need to plan movements carefully because its ability to exert control with an induction coupler is based on both its state, the local geometry.      
+  \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/driving_forward.tif}
+      \caption{Heading and control input open-loop orientation and planar translation}
+      \label{fig:planartranslationcontrol}
+   \end{figure}
+   
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/driving_forward_trajectory.tif}
+      \caption{Trajectory during open-loop orientation and planar translation}
+      \label{fig:planartranslationtrajectory}
+   \end{figure}
+   
+      \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_rotation.tif}
+      \caption{Heading and control input during open-loop planar rotation}
+      \label{fig:planartranslationtrajectory}
+   \end{figure}
+   
+         \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/distance_to_plate_w_pic_pull.tif}
+      \caption{Top: Overhead view of out-of-plane demonstration \\ Bottom: distance to plate during out-of-plane translation}
+      \label{fig:ooptranslation}
+   \end{figure}
+   
+      
+         \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/rotation_heading.tif}
+      \caption{Heading during out-of-plane rotation}
+      \label{fig:ooprotation}
+   \end{figure}
+
+  
 
 \begin{table}[h]
-\caption{An Example of a Table}
-\label{table_example}
+\caption{Parameters of demonstration experiment}
+\label{table:params}
 \begin{center}
 \begin{tabular}{|c||c|}
 \hline
@@ -264,6 +298,15 @@ Three & Four\\
 \end{tabular}
 \end{center}
 \end{table}
+
+\section{Conclusion}
+A robotic on-orbit service vehicle can use induction couplers can produce locomotive forces in all six rigid body degrees of freedom near a conductive surface. Rotating permanent-magnet arrays generate forces perpendicular to both their axes of rotation and the conductive surface. Current-oscillating electromagnets generate forces directly away from the surface. A pair of rotating arrays can produce $\hat{x}$ and $\hat{y}$ forces in the plane of the traversal surface. These two arrays can also produce torques in the $\hat{z}$ direction. This pair of arrays can take advantage of the surface geometry to generate forces in the $\hat{z}$ direction by generating shear forces along a non-flat surface whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. These maneuvers are demonstrated in simulations and verified on a low-friction testbed.  
+
+%An autonomous space vehicle can use these forces to crawl over the conductive surface of a target spacecraft without propellant or the risk associated with physical grappling. Rotating arrays of magnets produce planar forces and torques. These rotating arrays can also produce forces perpendicular to the surface by taking advantage of surface features such as curvature or edges. Electromagnets can produce force directly away from any surface and by coupling these forces, produce torques parallel to that surface. Dynamic simulations demonstrate each degree-of-freedom using an analytical force model and hardware demonstrations on a low-friction testbed verify the results. 
+%TODO future work - trajectory optimization, end effector design, kinematic simulation
+Future work will focus on two areas - adaptive controllers and movement planning. A robotic inspector will need adaptive controllers to account for induction coupler's strong dependence on poorly known parameters of the environment.  The inspector will also need to plan movements carefully because its ability to exert control with an induction coupler is based on both its state, the local geometry.      
+
+
 
 
 
