@@ -5,3 +5,8 @@
 *.out
 *.do
 *.tdo
+*.bbl
+*.blg
+*.dvi
+*.py
+*.inx

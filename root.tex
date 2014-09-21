@@ -33,7 +33,7 @@ F*ing sweet title
 
 
 \author{Benjamin Reinhardt$^{1}$ % and Bernard D. Researcher$^{2}$% <-this % stops a space
-\thanks{*This work was supported by a NSTRF Grant}% <-this % stops a space
+\thanks{*}% <-this % stops a space
 %\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
 %        University of Twente, 7500 AE Enschede, The Netherlands
 %        {\tt\small albert.author@papercept.net}}%
@@ -75,23 +75,24 @@ The induction coupler's ability to generate forces is state dependent: its force
 % planar torque
 
 \section{Introduction}
-On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task. \cite{} \todo{cite papers on difficulty of OOS} 
-Just as on earth, large assets like the International Space Station (ISS) \label{def:ISS} or geostationary satellites experience wear and unexpected problems that require inspection, repair, or refuelling. \todo{cite paper about uses of OOS} These tasks are well suited for robots because it is less dangerous and expensive to send an inspection vehicle to geostationary orbit or outside the ISS than a human spacewalker. \todo{Is it worthwhile to mention the DARPA Phoenix project?} 
+On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task. \cite{Coleshill2009}\cite{Ellery2004}\cite{Ellery2008} \todo{cite papers on difficulty of OOS} 
+Just as on earth, large assets like the International Space Station (ISS) \label{def:ISS} or geostationary satellites experience wear and unexpected problems that require inspection, repair, or refuelling.\cite{Moosavian2007} \todo{cite paper about uses of OOS} These tasks are well suited for robots because it is less dangerous and expensive to send an inspection vehicle to geostationary orbit or outside the ISS than a human spacewalker. \todo{Is it worthwhile to mention the DARPA Phoenix project?} 
 %
 Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can physically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target.\todo{cite different systems.} Grappling has many potential risks in an uncertain, low-friction environment. Propellant is expensive and can damage sensitive targets. Cooperation is infeasible in many situations because most spacecraft did not launch with the necessary subsystems: spacecraft are not designed to be inspected or repaired by robots.
 %
-However, the ISS and most spacecraft composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation.\todo{physics book citation}\cite{} These eddy-current forces have several terrestrial applications from trash separation \cite{} to mag-lev propulsion,\cite{} but have never been used in either a robotics or orbital context. An eddy-current based actuator called an induction coupler, can provide a completely new way to perform robotic locomotion and manipulation in space. 
+However, the ISS and most spacecraft composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation.\cite{Smyth1989} These eddy-current forces have several terrestrial applications from trash separation \cite{Rem1997} to mag-lev propulsion,\cite{} but have never been used in either a robotics or orbital context. An eddy-current based actuator called an induction coupler, can provide a completely new way to perform robotic locomotion and manipulation in space. 
 %
-The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA)\label{def:fea} \cite{•}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{•}
+The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA)\label{def:fea} \todo{FEM citation}\cite{}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{Paudel2013}
 %
  \begin{figure}[thpb]
       \centering
 
-    %  \includegraphics[width = 0.47\textwidth]{figures/screenshot.png}
+      \includegraphics[width = 0.47\textwidth]{figures/screenshot.png}
       \caption{An experimental induction coupled inspector moving near a model of the ISS exterior.}
       \label{fig:realpicture}
    \end{figure}
    %
+
 Section \ref{sec:model} presents an analytical model to solve for induction coupler forces. Section \ref{sec:movements} describes and simulates the necessary open-loop manoeuvres to move in each dof. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed.
 %
 
@@ -121,6 +122,7 @@ Where $\Gamma$ is a transmission function associated with the conductive surface
  $\Gamma$ and $B$ are nonlinear functions of the system state. $\Gamma$ depends on the array's rotation frequency $\omega$, velocity $\textbf{v}$ and distance from the surface $g$. $B$ is a nonlinear function of $g$ as well. Even near a curved surface, the assumption of an infinite flat surface is valid for induction couplers because the operating gap is on the order of centimeters: very small compared to the curvatures of most target surfaces. 
  
 A geometric generalization of this force is imperative in order to dynamically model the actuation of a 6-DoF orbital inspector. Eddy-current forces act only in opposition to change in magnetic field, so the force net force will always act perpendicular to the array's spin axis. Thus, a 3D formulation of the force can be described by tilting the force plane along with $\hat{a}$. 
+
 %As the array tilts, $g$ goes from its minimum value when $\hat{\textbf{a}}$ lies in the plane of the surface, to infinity when $\hat{a}$ is perpendicular to the surface. $B$ is proportional to $\frac{1}{g^2}$ so the force will drop to zero when $\hat{\textbf{a}}$ is parallel to the surface. The cross product meets both the conditions on the direction and the magnitude of the force.   
 
 \begin{equation}
@@ -174,9 +176,6 @@ While moving in the plane parallel to the target surface, induction couplers act
 
 Unlike wheels, induction couplers do not provide constraint forces perpendicular to their rotation. They also cannot slip, so the forces they can provide at a given distance are limited only by the capabilities of their motors. 
 %
-
-
-
  
    \begin{figure}[thpb]
       \centering
@@ -185,7 +184,8 @@ Unlike wheels, induction couplers do not provide constraint forces perpendicular
       \label{fig:planarsetup}
    \end{figure}
 
-  An inspector can translate in the plane by using a pair of induction couplers like wheels. Ideally, pure translational motion will involve no net torque. Because there are no kinetic constraints on the couplers the net torque they generate is extremely sensitive to their relative location to the system's center of mass (CoM)\label{def:com}. This means that open loop operation is very sensitive to modeling errors - any unaccounted asymmetry between the two induction couplers will lead to unwanted torque. 
+  An inspector can translate in the plane by using a pair of induction couplers like wheels. Ideally, pure translational motion will involve no net torque. Because there are no kinetic constraints on the couplers the net torque they generate is extremely sensitive to their relative location to the system's center of mass (CoM)\label{def:com}. This means that open loop operation is very sensitive to modelling errors - any unaccounted asymmetry between the two induction couplers will lead to unwanted torque.
+  
      \begin{figure}[thpb]
       	\centering
   		\includegraphics[width = 0.47\textwidth]{figures/planar_translation.eps}
@@ -203,25 +203,36 @@ The simplest way for induction couplers to produce pure rotation is to act simil
    \end{figure}
 
 %Define 'planar torque as torque perpendicular to the plane
-%TODO Diagram
+
 %TODO Pseudocode for algorithm 
 \subsection{Out-of-Plane Movement}
-%TODO Diagram
 
-   \begin{figure}[thpb]
+It is more complicated for induction couplers to produce forces and torques that control movement out of the plane parallel to the target surface. To produce these out-of-plane motions, an induction coupler system needs to take advantage of the surface geometry.
+ 
+  \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/curve_locomotion.eps}
       \caption{Configuration for out-of-plane control}
       \label{fig:outofplaneschematic}
    \end{figure}
-%TODO Diagram
+%Translation
+The forces generated by spinning arrays are locally almost completely tangential to the surface. For large $\omega$, the ratio of the normal to tangential components of the force increases slightly and can be used to repel away from the surface. However, these forces are small and only act in the $+\hat{\textbf{z}}$ direction, giving no control in $-\hat{\textbf{z}}$. By strategically summing forces across several arrays near different locations on a curved surface, the inspector can generate larger net forces in both $+\hat{\textbf{z}}$ and $-\hat{\textbf{z}}$. Rotating two arrays oriented along the $\hat{\textbf{y}}$ with opposing $\omega$ will create local forces who's $\hat{\textbf{x}}$ components will cancel and who's $\hat{\textbf{z}}$ components will sum to pull the inspector towards the surface or push it away. This strategy is illustrated in figure \ref{fig:outofplaneschematic}.     
 
-  \begin{figure}[thpb]
+ 
+   
+     \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/curve_translations.eps}
       \caption{Simulation of out-of-plane translation - first pulling on, and then pushing away from the target surface}
       \label{fig:ooptranslation}
    \end{figure}
+
+The simulation of $\hat{\textbf{z}}$ motion used a target surface with the same curvature as an ISS module. It demonstrates the ability of an induction-coupled inspector to pull itself towards the surface and then push itself away again before colliding. 
+
+%Rotation  
+
+Using locally tangential forces, the inspector can control rotation about the $\hat{\textbf{y}}$ axis by giving each array the same input speed $\omega$. With only two arrays, the torque is coupled with a force - a third array would make the force and torque independent. 
+   
 
    \begin{figure}[thpb]
       \centering
@@ -232,6 +243,7 @@ The simplest way for induction couplers to produce pure rotation is to act simil
 
 
 \section{Experimental Demonstration}\label{sec:experiments}
+
 \section{Conclusion}
 A robotic on-orbit service vehicle can use induction couplers can produce locomotive forces in all six rigid body degrees of freedom near a conductive surface. Rotating permanent-magnet arrays generate forces perpendicular to both their axes of rotation and the conductive surface. Current-oscillating electromagnets generate forces directly away from the surface. A pair of rotating arrays can produce $\hat{x}$ and $\hat{y}$ forces in the plane of the traversal surface. These two arrays can also produce torques in the $\hat{z}$ direction. This pair of arrays can take advantage of the surface geometry to generate forces in the $\hat{z}$ direction by generating shear forces along a non-flat surface whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. These maneuvers are demonstrated in simulations and verified on a low-friction testbed.  
 
@@ -277,14 +289,14 @@ Three & Four\\
 \section*{APPENDIX}
 
 \section*{ACKNOWLEDGMENT}
-
+This work was supported by a NSTRF Grant.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
+\bibliographystyle{plain}
 \bibliography{biblio.bib}
 
 
