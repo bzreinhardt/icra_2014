@@ -25,7 +25,11 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{hyperref}
+\usepackage{color}
 \usepackage[colorinlistoftodos]{todonotes}
+
+\catcode`\^^M=10      %  Makes blank lines meaningless to TeX,
+                                %  forces useof  \par at paragraph breaks
 
 \title{\LARGE \bf
 F*ing sweet title
@@ -41,6 +45,11 @@ F*ing sweet title
 %        Dayton, OH 45435, USA
 %        {\tt\small b.d.researcher@ieee.org}}%
 }
+
+
+
+\definecolor{darkgreen}{rgb}{0.0, 0.4, 0.2}
+\newcommand{\matt}[1]{{\color{darkgreen}\small\par {[{\bf Matt says:} {\em #1}} ] \\    }}
 
 
 \begin{document}
@@ -87,7 +96,7 @@ The first step towards an induction coupler locomotion system is to show how to 
  \begin{figure}[thpb]
       \centering
 
-      \includegraphics[width = 0.47\textwidth]{figures/screenshot.png}
+      \includegraphics[width = 1.0\linewidth]{figures/screenshot.png}
       \caption{An experimental induction coupled inspector moving near a model of the ISS exterior.}
       \label{fig:realpicture}
    \end{figure}
@@ -96,6 +105,7 @@ The first step towards an induction coupler locomotion system is to show how to 
 Section \ref{sec:model} presents an analytical model to solve for induction coupler forces. Section \ref{sec:movements} describes and simulates the necessary open-loop manoeuvres to move in each dof. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed.
 %
 
+\matt{Reference the figure here }
   
 \section{Actuator Model}
 \label{sec:model}
@@ -121,7 +131,9 @@ Where $\Gamma$ is a transmission function associated with the conductive surface
 % 
  $\Gamma$ and $B$ are nonlinear functions of the system state. $\Gamma$ depends on the array's rotation frequency $\omega$, velocity $\textbf{v}$ and distance from the surface $g$. $B$ is a nonlinear function of $g$ as well. Even near a curved surface, the assumption of an infinite flat surface is valid for induction couplers because the operating gap is on the order of centimeters: very small compared to the curvatures of most target surfaces. 
  
-A geometric generalization of this force is imperative in order to dynamically model the actuation of a 6-DoF orbital inspector. Eddy-current forces act only in opposition to change in magnetic field, so the force net force will always act perpendicular to the array's spin axis. Thus, a 3D formulation of the force can be described by tilting the force plane along with $\hat{a}$. 
+A geometric generalization of this force is imperative in order to dynamically model the actuation of a 6-DoF orbital inspector. Eddy-current forces act only in opposition to change in magnetic field, so the net force will always act perpendicular to the array's spin axis. Thus, a 3D formulation of the force can be described by tilting the force plane along with $\hat{a}$. 
+
+%Make a reference to the figure - mpk
 
 %As the array tilts, $g$ goes from its minimum value when $\hat{\textbf{a}}$ lies in the plane of the surface, to infinity when $\hat{a}$ is perpendicular to the surface. $B$ is proportional to $\frac{1}{g^2}$ so the force will drop to zero when $\hat{\textbf{a}}$ is parallel to the surface. The cross product meets both the conditions on the direction and the magnitude of the force.   
 
@@ -174,8 +186,10 @@ A full system consists of several arrays to control all six degrees of freedom. 
 While moving in the plane parallel to the target surface, induction couplers act similar to contactless wheels - they generate forces parallel to the surface that increase with their speed. Thus, a fixed arrangement needs at least two couplers to move in all three planar degrees of freedom and three couplers to control each degree of freedom independently.    
 % 
 
-Unlike wheels, induction couplers do not provide constraint forces perpendicular to their rotation. They also cannot slip, so the forces they can provide at a given distance are limited only by the capabilities of their motors. 
+Unlike wheels, induction couplers do not provide constraint forces perpendicular to their rotation.  \matt{The following sentence is confusing. Maybe something about no clutch, or the actuator is an accelertion source?}They also cannot slip, so the forces they can provide at a given distance are limited only by the capabilities of their motors. 
 %
+
+\matt{Figures reference here}
  
    \begin{figure}[thpb]
       \centering
@@ -192,6 +206,8 @@ Unlike wheels, induction couplers do not provide constraint forces perpendicular
       		\caption{Simulation of planar translation and reversal}
       		\label{fig:planartranslation}
    \end{figure}
+
+\matt{Simulation of a planar rotation and reversal - need to not have lines on top of eachother - maybe just say curve 1 = curve 2}
       
 The simplest way for induction couplers to produce pure rotation is to act similarly to differential drive wheels. Two couplers with axes parallel to the surface spin in opposite directions.
 
@@ -207,7 +223,7 @@ The simplest way for induction couplers to produce pure rotation is to act simil
 %TODO Pseudocode for algorithm 
 \subsection{Out-of-Plane Movement}
 
-It is more complicated for induction couplers to produce forces and torques that control movement out of the plane parallel to the target surface. To produce these out-of-plane motions, an induction coupler system needs to take advantage of the surface geometry.
+It is more complicated for induction couplers to produce forces and torques that control movement out of the plane parallel to the target surface. \matt{Why?} To produce these out-of-plane motions, an induction coupler system needs to take advantage of the surface geometry.
  
   \begin{figure}[thpb]
       \centering
@@ -216,7 +232,7 @@ It is more complicated for induction couplers to produce forces and torques that
       \label{fig:outofplaneschematic}
    \end{figure}
 %Translation
-The forces generated by spinning arrays are locally almost completely tangential to the surface. For large $\omega$, the ratio of the normal to tangential components of the force increases slightly and can be used to repel away from the surface. However, these forces are small and only act in the $+\hat{\textbf{z}}$ direction, giving no control in $-\hat{\textbf{z}}$. By strategically summing forces across several arrays near different locations on a curved surface, the inspector can generate larger net forces in both $+\hat{\textbf{z}}$ and $-\hat{\textbf{z}}$. Rotating two arrays oriented along the $\hat{\textbf{y}}$ with opposing $\omega$ will create local forces who's $\hat{\textbf{x}}$ components will cancel and who's $\hat{\textbf{z}}$ components will sum to pull the inspector towards the surface or push it away. This strategy is illustrated in figure \ref{fig:outofplaneschematic}.     
+The forces generated by spinning arrays are locally almost completely tangential to the surface. For large $\omega$, the ratio of the normal to tangential components of the force increases slightly and can be used to repel away from the surface. However, these forces are small and only act in the $+\hat{\textbf{z}}$ direction, giving no control in $-\hat{\textbf{z}}$. By strategically summing forces across several arrays near different locations on a curved surface, the inspector can generate larger net forces in both $+\hat{\textbf{z}}$ and $-\hat{\textbf{z}}$. \matt{But I thought only positive? -- CURVED or NON-FLAT} Rotating two arrays oriented along the $\hat{\textbf{y}}$ with opposing $\omega$ will create local forces who's $\hat{\textbf{x}}$ components will cancel and who's $\hat{\textbf{z}}$ components will sum to pull the inspector towards the surface or push it away. This strategy is illustrated in figure \ref{fig:outofplaneschematic}.     
 
  
    
@@ -228,6 +244,8 @@ The forces generated by spinning arrays are locally almost completely tangential
    \end{figure}
 
 The simulation of $\hat{\textbf{z}}$ motion used a target surface with the same curvature as an ISS module. It demonstrates the ability of an induction-coupled inspector to pull itself towards the surface and then push itself away again before colliding. 
+
+\matt{HOw was simulation done? Where did controls come from?}
 
 %Rotation  
 
@@ -245,7 +263,11 @@ Using locally tangential forces, the inspector can control rotation about the $\
 \section{Experimental Demonstration}\label{sec:experiments}
 We constructed a prototype inspection vehicle with two spinning magnet arrays in order to demonstrate the four control approaches (planar translation, planar rotation, out-of-plane translation, out-of-plane rotation.) 
 
+\matt{Perhaps add a   :  after considerations. Also need to put a new paragraph marker here}
+
 \textbf{Considerations} The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target surface would occult it from the tracking system. These constraints mean that the experiments only serve as a demonstration of the motion primitives for now, rather than a full model validation.
+
+\matt{Need some discussion of these figures. Looks like you did neat experiments, but I need some direction in viewing the figures.}
 
   \begin{figure}[thpb]
       \centering
@@ -283,7 +305,7 @@ We constructed a prototype inspection vehicle with two spinning magnet arrays in
       \label{fig:ooprotation}
    \end{figure}
 
-  
+  \matt{Unsquish image}
 
 
 \section{Conclusion}
