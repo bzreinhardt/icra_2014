@@ -310,8 +310,6 @@ This section presents experimental an experimental demonstration of each strateg
 \par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target surface would occult it from the tracking system. These constraints mean that the experiments only serve as a demonstration of the motion primitives for now, rather than a full model validation. 
 
 \matt{Need some discussion of these figures. Looks like you did neat experiments, but I need some direction in viewing the figures.}
-
-\ben{What specifically would be most useful in the figure discussion. I'm not sure where to go besides 'hey look, the thing does the thing I said it should. yay'}
 \subsection{Planar Movement}\label{sec:planar_movement_exp}
    
    \begin{figure}[thpb]
@@ -353,7 +351,7 @@ This section presents experimental an experimental demonstration of each strateg
       \label{fig:oop_rotation_exp}
    \end{figure}
    
-   \par Figure \ref{fig:oop_rotation_exp} shows the heading of the inspector as it rotates itself out of the plane about the $\hat{textbf{y}}$ axis.
+   \par Figure \ref{fig:oop_rotation_exp} shows the heading of the inspector as it rotates itself out o about the $\hat{textbf{y}}$ axis
 
   \matt{Unsquish image}
   
