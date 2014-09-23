@@ -34,11 +34,11 @@
                                 %  forces useof  \par at paragraph breaks
 
 \title{\LARGE \bf
-F*ing sweet title
+Excellent title
 }
 
 
-\author{Benjamin Reinhardt$^{1}$ % and Bernard D. Researcher$^{2}$% <-this % stops a space
+\author{Benjamin Reinhardt and Mason Peck% <-this % stops a space
 %\thanks{*}% <-this % stops a space
 %\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
 %        University of Twente, 7500 AE Enschede, The Netherlands
@@ -92,8 +92,7 @@ Just as on earth, large assets like the International Space Station (ISS) \label
 \par However, the ISS and most spacecraft are composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation.\cite{Smyth1989} These eddy-current forces have several terrestrial applications from trash separation \cite{Rem1997} to mag-lev propulsion,\cite{Paudel2012a}\cite{Ohji2007} but have never been used in either a robotics or orbital context. An eddy-current based actuator called an induction coupler, can provide a completely new way to perform robotic locomotion and manipulation in space. 
 %
 \par The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA)\label{def:fea} 
-\ben{FEM citation}
-\cite{}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{Paudel2013}
+\cite{Bird2008}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers.\cite{Paudel2013}
 %
  \begin{figure}[thpb]
       \centering
@@ -282,7 +281,7 @@ To demonstrate planar movement the target is a curved in the x-z plane, just lik
 The simulation of $\hat{\textbf{z}}$ motion used a target surface with the same curvature as an ISS module. It demonstrates the ability of an induction-coupled inspector to pull itself towards the surface and then push itself away again before colliding. 
      \begin{figure}[thpb]
       \centering
-      \includegraphics[width = 0.47\textwidth]{figures/curve_translations.eps}
+      \includegraphics[width = 0.47\textwidth]{figures/oop_translation_sim.eps}
       \caption{Simulation of out-of-plane translation - first pulling on, and then pushing away from the target surface}
       \label{fig:oop_translation_sim}
    \end{figure}
