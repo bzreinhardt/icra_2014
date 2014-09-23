@@ -229,7 +229,7 @@ It is more complicated for induction couplers to produce forces and torques that
 
 \section{Simulated Demonstration}\label{sec:simulations}
 
-In this section, simulations demonstrate movement with each strategy - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller is absolutely essential to account for motion out of the plane. The inspector was modelled as a small satellite using two motors with two magnets each as induction couplers. We chose maximum and minimum motor speed inputs to match those used in the experimental demonstrations (section \ref{sec:experiments}.)     
+In this section, simulations demonstrate each motion primative - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller and >2 arrays are absolutely essential to account for motion out of the plane. The model inspector is the size of a small satellite using two motors each with two magnets as induction couplers. The maximum and minimum motor speed inputs match those used in the experimental demonstrations (section \ref{sec:experiments}.)     
 
 \begin{table}[h]
 \caption{Simulation Parameters}
@@ -295,9 +295,11 @@ The simulation of $\hat{\textbf{z}}$ motion used a target surface with the same 
    \end{figure}
 
 \section{Experimental Demonstration}\label{sec:experiments}
-This section presents an experimental demonstration of each strategy - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays - one to demonstrate planar movement, one-to-demonstrate out of plane movement. 
+This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays - one to demonstrate planar movement, one-to-demonstrate out of plane movement. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
 
-\par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target surface would occult it from the tracking system. These constraints mean that the experiments only serve as a demonstration of the motion primitives for now, rather than a full model validation. 
+\par \textbf{Hardware}: The induction couplers were DC hobby gear motors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's pose.  
+
+\par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target occulted it from the tracking system, because the target plate was mounted directly above the vehicle out of necessity. These constraints mean that the experiments serve as a demonstration of the motion, rather than a full model validation.  
 
 \subsection{Planar Movement}\label{sec:planar_movement_exp}
    
@@ -308,7 +310,7 @@ This section presents an experimental demonstration of each strategy - planar tr
       \label{fig:planar_translation_exp_trajectory}
    \end{figure}
    
-   Figure \ref{fig:planar_translation_exp_trajectory} shows the trajectory of the inspector during planar translation. The inspector spins both arrays forward to translate forward. Unfortunately, the majority of the inspector is obscured because it needs to remain under the plate to push off of it. 
+   \par Figure \ref{fig:planar_translation_exp_trajectory} shows the trajectory of the inspector during planar translation. The inspector spins both arrays forward to translate forward. The majority of the inspector is obscured because the arrays needed to remain directly under the target surface.
    
 
       \begin{figure}[thpb]
@@ -318,7 +320,7 @@ This section presents an experimental demonstration of each strategy - planar tr
       \label{fig:planar_rotation_exp}
    \end{figure}
    
-  \par Figure \ref{fig:planar_rotation_exp} shows a maneuver in which the inspector torqued itself around the $-\textbf{z}$ axis and then stoped and reversed its motion by generating torque around $+\textbf{z}$.  Note that $\hat{\textbf{a}}_1 =  \hat{\textbf{a}}_2$, the opposite of the simulations.
+  \par Figure \ref{fig:planar_rotation_exp} shows a maneuver in which the inspector used induction couplers to rotate itself around the $-\textbf{z}$ axis and then reversed its motion by generating torque around $+\textbf{z}$.  Note that $\hat{\textbf{a}}_1 =  \hat{\textbf{a}}_2$, the opposite of the simulations.
 
      \subsection{Out-of-Plane Movement}\label{sec:oop_movement_exp}
      
@@ -330,7 +332,7 @@ This section presents an experimental demonstration of each strategy - planar tr
       \label{fig:oop_translation_exp}
    \end{figure}
    
-   \par Figure \ref{fig:oop_translation_exp} shows the results from the inspector pulling itself towards the surface. Unfortunately, the distance it could travel before colliding with the plate was tiny - a clear reason for closed-loop control. The bottom half of the figure shows that the inspector does in fact accelerate towards the surface - the gap decreases with an increasing rate. 
+   \par Figure \ref{fig:oop_translation_exp} shows the results from the inspector pulling itself towards the surface. The distance it could travel before colliding with the plate was tiny - a clear reason for closed-loop control. The bottom half of the figure shows the inspector accelerating towards the surface - the distance between the CoM and the plate decreases with an increasing rate. 
   
       
          \begin{figure}[thpb]
