@@ -261,7 +261,7 @@ To demonstrate planar movement, the target is a flat plate in the x-y plane, jus
   
      \begin{figure}[thpb]
       	\centering
-  		\includegraphics[width = 0.47\textwidth]{figures/planar_translation.eps}
+  		\includegraphics[width = 0.47\textwidth]{figures/planar_translation_sim.eps}
       		\caption{Simulation of planar translation and reversal}
       		\label{fig:planar_translation_sim}
    \end{figure}
