@@ -99,14 +99,14 @@ On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task
  \begin{figure}[thpb]
       \centering
 
-      \includegraphics[width = 1.0\linewidth]{figures/screenshot.png}
+      \includegraphics[width = 0.75\linewidth]{figures/oop_diagram.pdf}
       \caption{An experimental inspector on a low-friction testbed uses induction couplers to actuate off of an aluminum plate simulating the ISS exterior.}
-      \label{fig:realpicture}
+      \label{fig:oop_exp_diagram}
    \end{figure}
    %
 \par This paper first extends the force model to find actuation forces for arbitrary configurations of multiple induction couplers. The model leads to four basic control inputs and their associated motion primitives that combined create 6-DoF actuation: planar forces (forces in the plane of the target), planar torques (torques about an axis out of the plane), out-of-plane forces, and out-of-plane torques. Each of these motions requires a different configuration of couplers and control input from those couplers. The intention of this paper is to demonstrate the raw capabilities of induction couplers and provide the motion primitives that will serve as the foundation of position controllers for robotic orbital inspectors. 
 
-\par Section \ref{sec:model} presents an analytical model to solve for induction coupler forces. Section \ref{sec:movements} describes and simulates the necessary open-loop manoeuvres to move in each DoF. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed, shown in figure \ref{fig:realpicture}.
+\par Section \ref{sec:model} presents an analytical model to solve for induction coupler forces. Section \ref{sec:movements} describes and simulates the necessary open-loop manoeuvres to move in each DoF. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed, shown in figure \ref{fig:oop_exp_diagram}.
 
 %
 \section{Actuator Model}
@@ -114,7 +114,7 @@ On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task
  \begin{figure}[thpb]
       \centering
       %\framebox{{}}
-      \includegraphics[width = 0.47\textwidth]{figures/spin_mag_diagram.eps}
+      \includegraphics[width = 0.75\linewidth]{figures/spin_mag_diagram.eps}
       \caption{Diagram of a single induction coupler array}
       \label{fig:single_array}
    \end{figure}
@@ -232,7 +232,7 @@ It is more complicated for induction couplers to produce forces and torques that
 
 \section{Simulated Demonstration}\label{sec:simulations}
 
-In this section, simulations demonstrate each motion primative - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller and $>2$ couplers are essential to account for motion out of the plane. The model inspector is the size of a small satellite using two motors each with two magnets as induction couplers. The maximum and minimum motor speed inputs match those used in the experimental demonstrations (section \ref{sec:experiments}.)     
+In this section, simulations demonstrate each motion primative - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller and more than two couplers are essential to account for motion out of the plane. The model inspector is the size of a small satellite using two motors each with two magnets as induction couplers. The parameters shown in table \ref{table: sim_params} match those used in the experimental demonstrations in section \ref{sec:experiments}.   
 
 \begin{table}[h]
 \caption{Simulation Parameters}
@@ -242,7 +242,8 @@ In this section, simulations demonstrate each motion primative - planar translat
 \hline
 Description & value & units \\
 \hline \hline
-Power Consumed at Maximum Input, $P$ & 4 & W \\ \hline
+Max Coupler Speed, $\omega$ & 32.7 & rad s$^-1$ \\ \hline 
+Max Coupler Power, $P_max$ & 2 & W \\ \hline
 
 Mass $m$ & 10.2 & kg \\ \hline
 
@@ -260,61 +261,73 @@ Curvature of non-flat target, $\kappa$  & 0.14 & m$^{-1}$\\
 \end{table}
 
 \subsection{Planar Movement}\label{sec:planar_movement_sim}
-To demonstrate planar movement, the target is a flat plate in the x-y plane, just like figure \ref{fig:planarsetup}. 
+To demonstrate planar movement, the target is a flat plate in the x-y plane shown in figure \ref{fig:planarsetup}. 
   
      \begin{figure}[thpb]
       	\centering
   		\includegraphics[width = 0.47\textwidth]{figures/planar_translation_sim.eps}
-      		\caption{Simulation of planar translation and reversal}
+      		\caption{Simulation of planar translation. The top plot shows the speed inputs to the couplers and resulting control force. The bottom plot shows the inspector's position}
       		\label{fig:planar_translation_sim}
    \end{figure}
    
-In figure \ref{fig:planar_translation_sim} the inspector drives itself forward and backwards with 30 mN of force by spinning both arrays forward. Note that $\hat{\textbf{a}}_1 = -\hat{\textbf{a}}_2$.  
+In a simulation of planar translation the inspector first drives itself forward by commanding opposite speeds in each coupler. Because $\hat{\textbf{a}}_1 = -\hat{\textbf{a}}_2$, opposite speeds in the couplers result in them both spinning in the same direction. The speeds of both couplers then reverse direction, creating a negative force and moving the inspector backwards. Figure \ref{fig:planar_translation_sim} shows the coupler speeds, force, and displacement. 
 
      \begin{figure}[thpb]
       \centering
-      \includegraphics[width = 0.47\textwidth]{figures/planar_rotations.eps}
-      \caption{Simulation of planar rotation and reversal. Note: the control speed is the same for both arrays.}
+      \includegraphics[width = 0.47\textwidth]{figures/planar_rotation_sim.eps}
+      \caption{Simulation of planar rotation. The top plot shows the speed inputs to the couplers and resulting control torque. The bottom plot shows the inspector's heading. Note: the control speed is the same for both arrays}
       \label{fig:planar_rotation_sim}
    \end{figure}
    
-In figure \ref{fig:planar_rotation_sim} the inspector rotates itself with 15 mN$\cdot$m of torque by counter-spinning each array. 
+In a simulation of planar rotation the inspector rotates commands the same speed to each coupler, rotating itself about the positive z axis. The speeds of both couplers then reverse direction, generating a torque about the negative z axis. Figure \ref{fig:planar_rotation_sim} shows the coupler speeds, torque, and heading. 
 
 \subsection{Out-of-Plane Movement}\label{sec:oop_movement_sim}
-To demonstrate planar movement the target is a curved in the x-z plane, just like figure \ref{fig:oopsetup} The induction couplers both spin about the y axis in the body frame so that they can produce motion in the x-z plane by generating forces tangential to the surface.   
-The simulation of $\hat{\textbf{z}}$ motion used a target surface with the same curvature as an ISS module. It demonstrates the ability of an induction-coupled inspector to pull itself towards the surface and then push itself away again before colliding.
-\ben{more talking about the figures here}
+\par To demonstrate out-of-plane movement, the target is a curved surface in the x-z plane, shown in figure \ref{fig:oopsetup}. The surface curvature matches an ISS module both in simulation and experiment to approximate real capabilities as much as possible. The induction couplers both spin about the y axis in the body frame so that they can produce motion in the x-z plane by generating forces tangential to the surface.   
+
+\par In figure \ref{fig:oop_translation_sim} the inspector pulls itself towards the surface by spinning with opposing speeds so that the z component of each tangential force is negative. When the forces from each coupler sum, the resultant force is entirely in the -z direction, pulling the inspector towards the surface. The inspector then reverses the coupler speeds, pushing itself away from the surface and preventing a collision. Finally, it stops itself at its original position.
+
+\par In figure \ref{fig:oop_rotation_sim} the inspector rotates about the y axis by spinning each coupler in the same direction.
+
 
 
      \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/oop_translation_sim.eps}
-      \caption{Simulation of out-of-plane translation - first pulling on, and then pushing away from the target surface}
+      \caption{Simulation of out-of-plane translation. The top figure shows the input speeds for each coupler and the resultant force on the inspector. The bottom figure shows how the gap between each coupler and the surface change in response to the control forces}
       \label{fig:oop_translation_sim}
    \end{figure}
-   \ben{talk about plots more}
+   
    \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/curve_rotations.eps}
-      \caption{Simulation of out-of-plane rotation - rotating in the +Y and then -Y direction}
+      \caption{Simulation of out-of-plane rotation. The top figure shows the input speeds for each coupler and the resultant force and torque on the inspector. The bottom figure shows how the gap between each coupler and the surface change in response to the control forces and torques}
       \label{fig:oop_rotation_sim}
    \end{figure}
 
 \section{Experimental Demonstration}\label{sec:experiments}
-This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays - one to demonstrate planar movement, one-to-demonstrate out of plane movement. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
+This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays - one to demonstrate planar movement shown in figure \ref{fig:planar_translation_exp_diagram}, one to demonstrate out of plane movement shown in figure \ref{fig:oop_exp_diagram}. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
 
-\par \textbf{Hardware}: The induction couplers were DC hobby gear motors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's pose.  
+\par \textbf{Hardware}: The induction couplers were DC hobby gear motors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's heading and position with respect to the tags visible in figures \ref{fig:oop_exp_diagram} and \ref{fig:planar_translation_exp_diagram}. 
 
 \par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target occulted it from the tracking system, because the target plate was mounted directly above the vehicle out of necessity. These constraints mean that the experiments serve as a demonstration of the motion, rather than a full model validation.  
 
+
 \subsection{Planar Movement}\label{sec:planar_movement_exp}
-   
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_diagram.pdf}
+      \caption{Overhead view of the platform for demonstrating induction-coupler-generated planar motion}
+      \label{fig:planar_translation_exp_diagram}
+   \end{figure}
+  
+  
    \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/planar_translation.eps}
-      \caption{Trajectory during open-loop orientation and planar translation}
+      \caption{Trajectory during a planar translation manoeuvre. The body of the inspector is obscured by the target surface in the lower right part of the picture}
       \label{fig:planar_translation_exp_trajectory}
    \end{figure}
+
    
    \par Figure \ref{fig:planar_translation_exp_trajectory} shows the trajectory of the inspector during planar translation. The inspector spins both arrays forward to translate forward. The majority of the inspector is obscured because the arrays needed to remain directly under the target surface.
    
@@ -322,7 +335,7 @@ This section presents an experimental demonstration of each motion primitive - p
       \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/planar_rotation.eps}
-      \caption{Heading and control input during open-loop planar rotation}
+      \caption{Inspector heading (top) and induction coupler speed (bottom) during open-loop planar rotation}
       \label{fig:planar_rotation_exp}
    \end{figure}
    
@@ -333,8 +346,8 @@ This section presents an experimental demonstration of each motion primitive - p
      The plate used to demonstrate out-of-plane movement has a curvature designed to match the harmony module of the ISS. The inspector has two arrays, both with axes pointing in the $-\textbf{y}$ direction, out of the page.  
          \begin{figure}[thpb]
       \centering
-      \includegraphics[width = 0.47\textwidth]{figures/oop_translation.eps}
-      \caption{Top: Overhead view of out-of-plane demonstration Bottom: distance to plate during out-of-plane translation}
+      \includegraphics[width = 0.47\textwidth]{figures/oop_translation_exp.eps}
+      \caption{Distance between plate and center of tag during out-of-plane translation. A quadratic fit finds an estimated force of 3.4 mN}
       \label{fig:oop_translation_exp}
    \end{figure}
    
@@ -344,7 +357,7 @@ This section presents an experimental demonstration of each motion primitive - p
          \begin{figure}[thpb]
       \centering
       \includegraphics[width = 0.47\textwidth]{figures/oop_rotation.eps}
-      \caption{Heading during out-of-plane rotation}
+      \caption{Inspector heading (top) and coupler speeds (bottom) during out-of-plane rotation}
       \label{fig:oop_rotation_exp}
    \end{figure}
    
@@ -353,8 +366,10 @@ This section presents an experimental demonstration of each motion primitive - p
 
 
 \section{Conclusion}
-\ben{more clearly say "spin magnets with this kind of function to get X movement"}
-A robotic on-orbit service vehicle can use induction couplers can produce locomotive forces in all six rigid body degrees of freedom near a conductive surface. Rotating permanent-magnet arrays generate forces perpendicular to both their axes of rotation and the conductive surface. Current-oscillating electromagnets generate forces directly away from the surface. A pair of rotating arrays can produce $\hat{x}$ and $\hat{y}$ forces in the plane of the traversal surface. These two arrays can also produce torques in the $\hat{z}$ direction. This pair of arrays can take advantage of the surface geometry to generate forces in the $\hat{z}$ direction by generating shear forces along a non-flat surface whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. \ben{KILL THE PASSIVE} These maneuvers are demonstrated in simulations and verified on a low-friction testbed. 
+\label{sec:conclusion}
+This paper focused on modelling and demonstrating the ability of a system of induction couplers to actuate an orbital inspection vehicle in six degrees of freedom near a conductive surface. Contactless, propellantless motion on orbit is unique capability that can form the basis of orbital servicing missions. The construction of a generalized model enables fast dynamic simulations of an inspector using multiple induction couplers to actuate near a target surface. These couplers enable four different open-loop manoeuvres that together span 6-DoF: planar translation, planar rotation, out-of-plane translation and out-of-plane rotation.
+
+\par Couplers rotating on axes parallel to the plane generate planar motion similarly to a differential drive. Two or more couplers can take advantage of the surface geometry to generate motion out of the plane parallel to the target. This arrangement generates forces in the $\hat{z}$ direction by two or more creating shear forces whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. Flipping the direction of only one of these couplers produces a torque coupled with a force, enabling rotation out of the plane. Simulations demonstrate each of these four manoeuvres in an ideal scenario and a prototype system on a low-friction air table shows that they work in practice as well as theory.
 %%%%%%%%%%%%%%%%%%%%% Electromagnet stuff %%%%%%%%%%%% 
 %A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. 
  
@@ -388,14 +403,15 @@ A robotic on-orbit service vehicle can use induction couplers can produce locomo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section*{ACKNOWLEDGMENT}
-This work was supported by NSTRF Grant $\#$NNX11AN46H.
+This work was supported by NSTRF Grant $\#$NNX11AN46H.\\
+Thanks to the SPHERES team at NASA Ames for the test-bed and patient support. 
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\bibliographystyle{plain}
+\bibliographystyle{ieeetran}
 \bibliography{biblio.bib}
 
 
