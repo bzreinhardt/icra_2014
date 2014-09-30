@@ -1,0 +1,432 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%2345678901234567890123456789012345678901234567890123456789012345678901234567890
+%        1         2         3         4         5         6         7         8
+
+\documentclass[letterpaper, 10 pt, conference]{ieeeconf}  % Comment this line out if you need a4paper
+
+%\documentclass[a4paper, 10pt, conference]{ieeeconf}      % Use this line for a4 paper
+
+\IEEEoverridecommandlockouts                              % This command is only needed if 
+                                                          % you want to use the \thanks command
+
+\overrideIEEEmargins                                      % Needed to meet printer requirements.
+\pdfminorversion=4
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for postscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+%\usepackage{amsmath} % assumes amsmath package installed
+%\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage[disable]{todonotes}
+\usepackage{multirow}
+\usepackage{placeins}
+
+\catcode`\^^M=10      %  Makes blank lines meaningless to TeX,
+                                %  forces useof  \par at paragraph breaks
+
+\title{\LARGE \bf
+<<<<<<< HEAD
+Induction Coupler Motion Primatives
+=======
+A New Actuator for On-Orbit Inspection 
+>>>>>>> 1da1dac9f20bb58455415773d385fa9e6a052924
+}
+
+
+\author{Benjamin Reinhardt$^{\dag}$ 
+\thanks{$^{\dag}$ B. Reinhardt and M. Peck are with the Department of Mechanical Engineering at Cornell University, 127 Upson Hall, Ithaca, NY 14850 {\tt\small bzr3@cornell.edu}}%
+and Mason Peck% <-this % stops a space
+%\thanks{*}% <-this % stops a space
+%\thanks{$^{1}$Albert Author is with Faculty of Electrical Engineering, Mathematics and Computer Science,
+%        University of Twente, 7500 AE Enschede, The Netherlands
+%        {\tt\small albert.author@papercept.net}}%
+%\thanks{$^{2}$Bernard D. Researcheris with the Department of Electrical Engineering, Wright State University,
+%        Dayton, OH 45435, USA
+%        {\tt\small b.d.researcher@ieee.org}}%
+}
+
+
+
+\definecolor{darkgreen}{rgb}{0.0, 0.4, 0.2}
+\newcommand{\matt}[1]{{\color{darkgreen}\small\par {[{\bf Matt says:} {\em #1}} ] \\    }}
+
+
+%\definecolor{red}{rgb}{0.0, 0.4, 0.2}
+\newcommand{\ben}[1]{{\color{red}\small\par {[{\bf Ben says:} {\em #1}} ] \\    }}
+
+
+\begin{document}
+
+
+
+\maketitle
+\thispagestyle{empty}
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+Can you move along a surface in space without propellant or mechanical contact? On-orbit servicing requires a robot to operate in close proximity to the surface of a target spacecraft in order to inspect, refuel, or repair it.  Robotic operation in close proximity is difficult in space because spacecraft are fragile and often have poorly known, undamped dynamics. Current actuators for locomotion and grasping during on-orbit servicing require mechanical contact with the target (dangerous), propellant (expensive), or cooperation from the target (often infeasible.)   
+%
+This paper presents an new actuator - the induction coupler - that generates eddy-current forces between a robotic orbital inspector and the conductive exterior of its target. These forces allow the inspector to crawl along the surface of a target \textit{without mechanical contact}. Sets of induction couplers composed of spinning arrays of permanent magnets can exert control forces and torques in all six rigid-body degrees of freedom by strategically repelling and shearing across the surface of the target. 
+%
+%The induction coupler's ability to generate forces is state dependent: its forces and torques depend both on the relative orientation of the coupler to the surface and the surface's geometry. 
+This paper uses an analytical model of eddy-current forces to simulate the set of manoeuvres necessary to generate the control forces and torques that can move and orient a robotic orbital inspector. Experiments on a low-friction test bed demonstrate a successful implementation of the actuator and verify the manoeuvres.
+
+\end{abstract}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\listoftodos
+
+\section{Introduction}
+On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task\cite{Coleshill2009}\cite{Ellery2004}\cite{Ellery2008}. Just as on earth, large assets like the International Space Station (ISS) \label{def:ISS} or geostationary satellites experience wear and unexpected problems that require inspection, repair, or refuelling\cite{Moosavian2007}\cite{Saleh2002}. These tasks are well suited for robots because it is less dangerous and expensive to send an inspection vehicle to geostationary orbit or outside the ISS than a human spacewalker\cite{Ambrose2012}. 
+%
+\par Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. 
+%added 9/29
+These actions that don't directly interact with the target can be categorized as 'inspection.' 
+There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can mechanically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target. Grappling has many potential risks in an uncertain, low-friction environment\cite{Nguyen-Huynh2011}. Propellant is expensive and can damage sensitive targets\cite{Markelov2012}. Cooperation is infeasible in many situations because most spacecraft launch without the necessary subsystems: spacecraft are \textit{not} designed to be inspected or repaired by robots.
+%
+\par Fortunately, the ISS and most spacecraft are composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation\cite{Smyth1989}. These eddy-current forces have several terrestrial applications from trash separation \cite{Rem1997} to mag-lev propulsion,\cite{Paudel2012a}\cite{Ohji2007} but have never been used in robotics or orbital contexts. Induction couplers are actuators that utilize these eddy-currents. Their ability to actuate near a target without propellant or mechanical contact can provide a completely new way to perform robotic locomotion and manipulation in space.    
+%
+\par The first step towards an induction coupler locomotion system is to show how to produce actuation in each degree of freedom (DoF)\label{def:dof}. What is it capable of given different states? Eddy-current forces depend both on the robot's pose and the geometry of the environment. Simulating general eddy-current forces is normally done with finite element analyses (FEA)\label{def:fea} 
+\cite{Bird2008}. FEA are unsuitable for dynamically modelling induction couplers for two reasons: they are both too slow to run at each time step and their mesh of nodes needs change with the geometry of the system. Paudel and Bird derived an extensible analytical solution for eddy-current forces near a flat plate that enables fast simulations of induction couplers\cite{Paudel2013}. 
+%
+%
+ \begin{figure}[thpb]
+      \centering
+
+      \includegraphics[width = 0.75\linewidth]{figures/oop_diagram.pdf}
+      \caption{An experimental inspector on a low-friction testbed uses induction couplers to actuate off of an aluminum plate simulating the ISS exterior.}
+      \label{fig:oop_exp_diagram}
+   \end{figure}
+   %
+\par This paper first extends the force model to find actuation forces for arbitrary configurations of multiple induction couplers. The model leads to four basic control inputs and their associated motion primitives that combined create 6-DoF actuation: planar forces (forces in the plane of the target), planar torques (torques about an axis out of the plane), out-of-plane forces, and out-of-plane torques. Each of these motions requires a different configuration of couplers and control input from those couplers. The intention of this paper is to demonstrate the raw capabilities of induction couplers and provide the motion primitives that will serve as the foundation of position controllers for robotic orbital inspectors. 
+
+\par Section \ref{sec:model} presents an analytical model to solve for induction coupler forces. Section \ref{sec:movements} describes and simulates the necessary open-loop manoeuvres to move in each DoF. Finally, Section \ref{sec:experiments} presents experimental verification of each manoeuvre with a prototype induction coupler system on a low-friction testbed, shown in figure \ref{fig:oop_exp_diagram}.
+
+%
+\section{Actuator Model}
+\label{sec:model}
+ \begin{figure}[thpb]
+      \centering
+      %\framebox{{}}
+      \includegraphics[width = 0.75\linewidth]{figures/spin_mag_diagram.eps}
+      \caption{Diagram of a single induction coupler array}
+      \label{fig:single_array}
+   \end{figure}
+%\ben{They recommend using a framebox, is this worth it? How do I get rid of the border?}   
+\par Maxwell showed that time-varying magnetic field will induce an electric current in nearby conductors. Magnetic fields generate forces on moving currents, so these two effects combine to create eddy-current forces between a source of a changing magnetic field and a conductive surface. Induction couplers can use mechanically moving permanent magnets or time-varying electromagnets to generate a time-varying magnetic field. This paper focuses on the easiest and least power-intensive implementation of the mechanically-moving-magnet variety of induction coupler: a motorized, circular array of magnets. 
+%
+\par Paudel and Bird derived an analytical solution for the force from a single rotating array of permanent magnets near a flat conductor. \cite{Paudel2013} In a reference frame attached to the conductive surface shown in figure \ref{fig:single_array}, the force on the magnet array is
+
+\begin{equation}
+\label{eq:Paudel55}
+{}^S\textbf{F} = \frac{w}{8\pi\mu_0} \int^{\infty}_{-\infty}\Gamma(\xi,g)|B^s(\xi,g)|^2 d\xi
+\end{equation}
+%equation explanation.
+where $\Gamma$ is a transmission function associated with the conductive surface and $B$ is the spatial Fourier transform of the time-invariant part of the array's magnetic field.
+%%
+$\Gamma$ and $B$ are nonlinear functions of the system state. $\Gamma$ depends on the array's rotation frequency $\omega$, velocity $\textbf{v}$ and distance from the surface $g$. $B$ is a nonlinear function of $g$ as well. Near a curved surface, the assumption of an infinite flat surface is \textit{locally} valid for induction couplers because the operating gap is on the order of centimeters: very small compared to the curvatures of most target surfaces. 
+ 
+\par Eddy-current properties and geometry can generalize this force for dynamic models of a 6-DoF orbital inspector. This extension is important because the coupler's axis will rarely be perpendicular to the surface normal and it is much more convenient to calculate the forces in the inertial frame instead of a frame attached to the target surface. 
+Eddy-current forces act only in opposition to change in magnetic field, so the net force will always act perpendicular to the array's spin axis. Thus, a 3D formulation of the force in any reference frame can be found by tilting the force plane (shown in figure \ref{fig:single_array} along with $\hat{a}$.) 
+
+%As the array tilts, $g$ goes from its minimum value when $\hat{\textbf{a}}$ lies in the plane of the surface, to infinity when $\hat{a}$ is perpendicular to the surface. $B$ is proportional to $\frac{1}{g^2}$ so the force will drop to zero when $\hat{\textbf{a}}$ is parallel to the surface. The cross product meets both the conditions on the direction and the magnitude of the force.   
+
+\begin{equation}
+\label{eq:arrayForce}
+\begin{split}
+\textbf{F} =  &F_z(g,\omega,\textbf{v}) \left(\hat{\textbf{a}} \times \hat{\textbf{n}} \right) \\
+			 + &F_y(g,\omega,\textbf{v}) \left(\hat{\textbf{a}} \times \hat{\textbf{n}} \right) \times \hat{\textbf{a}}
+ \end{split}
+ \end{equation}
+ 
+ $F_z$ and $F_y$ are the components of the planar force calculated in equation \ref{eq:Paudel55}.
+ %
+ \par This statement of eddy-current forces is powerful because it is both analytical and general. The generality enables fast simulations of a 6-DoF inspection vehicle while the analytical nature will enable provable statements about the system's stability.
+ %
+A full system consists of several couplers to control all six degrees of freedom. The net force and torque on the body then depends on the location and orientation of n arrays in the inspector's frame. Each coupler
+%Exectuive decision by ben: coupler refers to one spinning thing. The word array is nixed unless SPECIFICALLY talking about the physics model or a halbach array
+ rotates around an axis, $\hat{\textbf{a}_n}$, located at $\textbf{d}_n$, shown in figure \ref{fig:planarsetup}. The net control force is 
+ 
+ \begin{equation}
+ \label{eq:Fnet }
+  \textbf{F}_{net} =  \sum_{i} F_z \left(\hat{\textbf{a}}_i \times \hat{\textbf{n}}_i \right) 
+		+ F_y \left(\hat{\textbf{a}}_i \times \hat{\textbf{n}}_i \right) \times \hat{\textbf{a}}_i
+ \end{equation}
+ 
+ and the net control torque is
+ 
+ \begin{equation}
+ \label{Tnet}
+ \boldsymbol{\tau}_{net} =  \sum_{i} \textbf{d}_i \times [F_z \left(\hat{\textbf{a}}_i \times \hat{\textbf{n}}_i \right) 
+		+ F_y \left(\hat{\textbf{a}}_i \times \hat{\textbf{n}}_i \right) \times \hat{\textbf{a}}_i]
+ \end{equation}
+
+ $\textbf{n}_i$ is the vector to the surface segment closest to array $i$.   
+ 
+\par The following sections use this model to demonstrate how a robotic inspector can use induction couplers to generate forces and torques in all six rigid body degrees of freedom.
+
+%
+%The force on a conductive surface from a cyclic magnetic source %\begin{equation}
+%\label{eq:sourcefield}
+%B = B^s e^{i\omega t}
+%\end{equation}
+%is given by 
+%\begin{equation}
+%\label{eq:ForceInt}
+%F^{ss} = \frac{w}{8\pi\mu_0}\int_{-\infty}^{\infty}\Gamma\left(\xi \right )\|B^s\left(\xi\right)\|d\xi
+%\end{equation}
+%here $B^s(\xi)$ is the Fourier transform of the static component of an oscillating source field  and $\Gamma(\xi)$ is a transmission function given in \cite{Paudel2013}. 
+
+\section{Movement Primitives}\label{sec:movements}
+\subsection{Planar Movement}\label{sec:planar_movement_desc}
+\par While moving in the plane parallel to the target surface, induction couplers act similar to contactless wheels - they generate forces parallel to the surface that increase with their speed. Thus, a fixed arrangement needs at least two couplers to move in all three planar degrees of freedom and three couplers to control each degree of freedom independently.    
+% 
+
+Unlike wheels, induction couplers do not provide constraint forces perpendicular to their rotation.  
+%\matt{The following sentence is confusing. Maybe something about no clutch, or the actuator is an accelertion source?}
+They also cannot slip on the surface. So unlike wheels that skid if they accelerate too quickly, induction coupler forces are limited by the capabilities of their motors.
+
+%
+
+%\matt{Figures reference here}
+ 
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/surface_locomotion.pdf}
+      \caption{Configuration for planar control: An inspector with two arrays spinning about $\hat{\textbf{y}}$ can translate and rotate above a flat target surface}
+      \label{fig:planarsetup}
+   \end{figure}
+
+ \par An inspector can translate in the plane by using a pair of induction couplers like differential drive wheels. Figure \ref{fig:planarsetup} shows this mode. Ideally, pure translational motion will involve no net torque. No net torque is difficult in practice because no kinematic constraints on the couplers make the system extremely sensitive to the relative location between the couplers and the system's center of mass (CoM)\label{def:com}. This sensitivity means that in open loop operation any unaccounted asymmetry between the two induction couplers will lead to unwanted torque. Thus, any induction coupler system will need closed-loop control. 
+      
+\par An inspector also needs to rotate in the plane parallel to the surface. The simplest way for induction couplers to produce pure rotation is to act similarly to differential drive wheels with two couplers spinning in opposite directions on axes parallel to the surface. Like pure translation, pure rotation in a real system is sensitive to the relative geometry of the coupler, the surface, and the CoM location, again calling for wrapping a controller around these open loop manoeuvres.  
+
+ 
+
+%Define 'planar torque as torque perpendicular to the plane
+
+%TODO Pseudocode for algorithm 
+\subsection{Out-of-Plane Movement}\label{sec:oop_movement_desc}
+
+It is more complicated for induction couplers to produce forces and torques that control movement out of the plane parallel to the target surface because the forces from a single induction coupler are limited in their direction. 
+
+  \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/curve_locomotion.pdf}
+      \caption{Configuration for out-of-plane control}
+      \label{fig:oopsetup}
+   \end{figure}
+   
+%Translation
+\par The forces generated by spinning magnets are almost completely tangential to the surface. For large $\omega$, the ratio of the normal to tangential components of the force increases slightly and can be used to repel away from the surface. However, these forces are small and only act in the $+\hat{\textbf{z}}$ direction, giving no control in $-\hat{\textbf{z}}$. By strategically summing forces across several couplers near different locations on a \textit{non-flat} surface, the inspector can generate larger net forces in both $+\hat{\textbf{z}}$ and $-\hat{\textbf{z}}$. 
+
+\par Rotating two couplers oriented along the $\hat{\textbf{y}}$ with opposing $\omega$ will create local forces whose $\hat{\textbf{x}}$ components will cancel and whose $\hat{\textbf{z}}$ components will sum, pulling the inspector towards the surface or pushing it away. This strategy is illustrated in figure \ref{fig:oopsetup}.     
+%Rotation  
+\par Using locally tangential forces, the inspector can control rotation about the $\hat{\textbf{y}}$ axis by giving each coupler the same input speed $\omega$. With only two couplers, the torque will always come with a force - a third coupler would make the force and torque independent. 
+
+\section{Simulation}\label{sec:simulations}
+
+In this section, simulations demonstrate each motion primative - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller and more than two couplers are essential to account for motion out of the plane. The model inspector is the size of a small satellite using two motors each with two magnets as induction couplers. The parameters shown in table \ref{table: sim_params} match those used in the experimental demonstrations in section \ref{sec:experiments}.   
+
+\begin{table}[h]
+\caption{Simulation Parameters}
+\label{table: sim_params}
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+Description & value & units \\
+\hline \hline
+Max Coupler Speed, $\omega$ & 32.7 & rad s$^-1$ \\ \hline 
+Max Coupler Power, $P_max$ & 2 & W \\ \hline
+
+Mass $m$ & 10.2 & kg \\ \hline
+
+Inertia $\textbf{J}$ & $1.02 \mathbb{I}$ & kgm$^2$ \\ \hline
+
+Gap in Planar Movement $g$ & 1 & cm \\ \hline
+
+Conductivity, $\sigma$ & 2.5 $\times 10^7$ & Sm$^{-1}$ \\ \hline
+
+Curvature of non-flat target, $\kappa$  & 0.14 & m$^{-1}$\\
+
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsection{Planar Movement}\label{sec:planar_movement_sim}
+To demonstrate planar movement, the target is a flat plate in the x-y plane shown in figure \ref{fig:planarsetup}. 
+  
+     \begin{figure}[thpb]
+      	\centering
+  		\includegraphics[width = 0.47\textwidth]{figures/planar_translation_sim.eps}
+      		\caption{Simulation of planar translation. The top plot shows the speed inputs to the couplers and resulting control force. The bottom plot shows the inspector's position}
+      		\label{fig:planar_translation_sim}
+   \end{figure}
+   
+In a simulation of planar translation the inspector first drives itself forward by commanding opposite speeds in each coupler. Because $\hat{\textbf{a}}_1 = -\hat{\textbf{a}}_2$, opposite speeds in the couplers result in them both spinning in the same direction. The speeds of both couplers then reverse direction, creating a negative force and moving the inspector backwards. Figure \ref{fig:planar_translation_sim} shows the coupler speeds, force, and displacement. 
+
+     \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_rotation_sim.eps}
+      \caption{Simulation of planar rotation. The top plot shows the speed inputs to the couplers and resulting control torque. The bottom plot shows the inspector's heading. Note: the control speed is the same for both arrays}
+      \label{fig:planar_rotation_sim}
+   \end{figure}
+   
+In a simulation of planar rotation the inspector rotates commands the same speed to each coupler, rotating itself about the positive z axis. The speeds of both couplers then reverse direction, generating a torque about the negative z axis. Figure \ref{fig:planar_rotation_sim} shows the coupler speeds, torque, and heading. 
+
+\subsection{Out-of-Plane Movement}\label{sec:oop_movement_sim}
+\par To demonstrate out-of-plane movement, the target is a curved surface in the x-z plane, shown in figure \ref{fig:oopsetup}. The surface curvature matches an ISS module both in simulation and experiment to approximate real capabilities as much as possible. The induction couplers both spin about the y axis in the body frame so that they can produce motion in the x-z plane by generating forces tangential to the surface.   
+
+\par In figure \ref{fig:oop_translation_sim} the inspector pulls itself towards the surface by spinning with opposing speeds so that the z component of each tangential force is negative. When the forces from each coupler sum, the resultant force is entirely in the -z direction, pulling the inspector towards the surface. The inspector then reverses the coupler speeds, pushing itself away from the surface and preventing a collision. Finally, it stops itself at its original position.
+
+\par In figure \ref{fig:oop_rotation_sim} the inspector rotates about the y axis by spinning each coupler in the same direction.
+
+
+
+     \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/oop_translation_sim.eps}
+      \caption{Simulation of out-of-plane translation. The top figure shows the input speeds for each coupler and the resultant force on the inspector. The bottom figure shows how the gap between each coupler and the surface change in response to the control forces}
+      \label{fig:oop_translation_sim}
+   \end{figure}
+   
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/curve_rotations.eps}
+      \caption{Simulation of out-of-plane rotation. The top figure shows the input speeds for each coupler and the resultant force and torque on the inspector. The bottom figure shows how the gap between each coupler and the surface change in response to the control forces and torques}
+      \label{fig:oop_rotation_sim}
+   \end{figure}
+
+\section{Experimental Demonstration}\label{sec:experiments}
+This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays. One prototype, pictured in  figure \ref{fig:planar_translation_exp_diagram}, demonstrated the planar movement diagrammed in figure \ref{fig:planarsetup}. The other prototype, pictured in  figure \ref{fig:oop_exp_diagram}, demonstrated out-of-plane movement diagrammed in figure \ref{fig:oopsetup}. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
+
+\par \textbf{Hardware}: The induction couplers were Sparkfun Standard gearmotors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A generic 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's heading and position with respect to the tags visible in figures \ref{fig:oop_exp_diagram} and \ref{fig:planar_translation_exp_diagram}. 
+
+\par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target occulted it from the tracking system, because the target plate was mounted directly above the vehicle out of necessity. These constraints mean that the experiments serve as a demonstration of the motion, rather than a full model validation.  
+
+
+\subsection{Planar Movement}\label{sec:planar_movement_exp}
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_diagram.pdf}
+      \caption{Overhead view of the platform for demonstrating induction-coupler-generated planar motion}
+      \label{fig:planar_translation_exp_diagram}
+   \end{figure}
+  
+  
+   \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_translation.eps}
+      \caption{Trajectory during a planar translation manoeuvre. The body of the inspector is obscured by the target surface in the lower right part of the picture}
+      \label{fig:planar_translation_exp_trajectory}
+   \end{figure}
+
+   
+   \par Figure \ref{fig:planar_translation_exp_trajectory} shows the trajectory of the inspector during planar translation. The inspector spins both arrays forward to translate forward. The majority of the inspector is obscured because the arrays needed to remain directly under the target surface.
+   
+
+      \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/planar_rotation.eps}
+      \caption{Inspector heading (top) and induction coupler speed (bottom) during open-loop planar rotation}
+      \label{fig:planar_rotation_exp}
+   \end{figure}
+   
+  \par Figure \ref{fig:planar_rotation_exp} shows a maneuver in which the inspector used induction couplers to rotate itself around the $-\textbf{z}$ axis and then reversed its motion by generating torque around $+\textbf{z}$.  Note that $\hat{\textbf{a}}_1 =  \hat{\textbf{a}}_2$, the opposite of the simulations.
+
+     \subsection{Out-of-Plane Movement}\label{sec:oop_movement_exp}
+     
+     The plate used to demonstrate out-of-plane movement has a curvature designed to match the harmony module of the ISS. The inspector has two arrays, both with axes pointing in the $-\textbf{y}$ direction, out of the page.  
+         \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/oop_translation_exp.eps}
+      \caption{Distance between plate and center of tag during out-of-plane translation. A quadratic fit finds an estimated force of 3.4 mN}
+      \label{fig:oop_translation_exp}
+   \end{figure}
+   
+   \par Figure \ref{fig:oop_translation_exp} shows the results from the inspector pulling itself towards the surface. The distance it could travel before colliding with the plate was tiny - a clear reason for closed-loop control. The bottom half of the figure shows the inspector accelerating towards the surface - the distance between the CoM and the plate decreases with an increasing rate. 
+  
+      
+         \begin{figure}[thpb]
+      \centering
+      \includegraphics[width = 0.47\textwidth]{figures/oop_rotation.eps}
+      \caption{Inspector heading (top) and coupler speeds (bottom) during out-of-plane rotation}
+      \label{fig:oop_rotation_exp}
+   \end{figure}
+   
+   \par Figure \ref{fig:oop_rotation_exp} shows the heading of the inspector as it rotates itself out of the plane about the $\hat{\textbf{y}}$ axis.
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+This paper focused on modelling and demonstrating the ability of a system of induction couplers to actuate an orbital inspection vehicle in six degrees of freedom near a conductive surface. Contactless, propellantless motion on orbit is unique capability that can form the basis of orbital servicing missions. The construction of a generalized model enables fast dynamic simulations of an inspector using multiple induction couplers to actuate near a target surface. These couplers enable four different open-loop manoeuvres that together span 6-DoF: planar translation, planar rotation, out-of-plane translation and out-of-plane rotation.
+
+\par Couplers rotating on axes parallel to the plane generate planar motion similarly to a differential drive. Two or more couplers can take advantage of the surface geometry to generate motion out of the plane parallel to the target. This arrangement generates forces in the $\hat{z}$ direction by two or more creating shear forces whose $\hat{x}$ and $\hat{y}$ components cancel but whose $\hat{s}$ components add. Flipping the direction of only one of these couplers produces a torque coupled with a force, enabling rotation out of the plane. Simulations demonstrate each of these four manoeuvres in an ideal scenario and a prototype system on a low-friction air table shows that they work in practice as well as theory.
+%%%%%%%%%%%%%%%%%%%%% Electromagnet stuff %%%%%%%%%%%% 
+%A single electromagnet generates force in the $+\hat{z}$ direction. The force from the electromagnet can also generate torques based on its relative location to the system's center of mass. 
+ 
+%%%%%%%%%%%%%%%%%%Extraneous stuff%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%An autonomous space vehicle can use these forces to crawl over the conductive surface of a target spacecraft without propellant or the risk associated with physical grappling. Rotating arrays of magnets produce planar forces and torques. These rotating arrays can also produce forces perpendicular to the surface by taking advantage of surface features such as curvature or edges. Electromagnets can produce force directly away from any surface and by coupling these forces, produce torques parallel to that surface. Dynamic simulations demonstrate each degree-of-freedom using an analytical force model and hardware demonstrations on a low-friction testbed verify the results. 
+%TODO future work - trajectory optimization, end effector design, kinematic simulation
+\par Future work will focus on two areas - adaptive controllers and movement planning. A robotic inspector will need adaptive controllers to account for induction coupler's strong dependence on poorly known parameters of the environment.  The inspector will also need to plan movements carefully because its ability to exert control with an induction coupler is based on both its state and the local geometry.      
+
+
+
+
+
+   
+
+
+\addtolength{\textheight}{-12cm}   % This command serves to balance the column lengths
+                                  % on the last page of the document manually. It shortens
+                                  % the textheight of the last page by a suitable amount.
+                                  % This command does not take effect until the next page
+                                  % so it should come on the page before the last. Make
+                                  % sure that you do not shorten the textheight too much.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{ACKNOWLEDGMENT}
+This work was supported by NSTRF Grant $\#$NNX11AN46H.\\
+Thanks to the SPHERES team at NASA Ames for the test-bed and patient support. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\bibliographystyle{ieeetran}
+\bibliography{biblio.bib}
+
+
+
+
+\end{document}
+
+%TODO SPECIFIC QUESTIONS FOR REVIEWERS
+% Are there any terms that are unclear
+% Is it clear from the beginning what you are going to be told?
+% Does the paper meet hose expectations?

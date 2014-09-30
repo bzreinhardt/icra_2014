@@ -15,7 +15,7 @@
    id="svg6097"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="surface_locomotion.svg">
+   sodipodi:docname="surface_locomotion.pdf">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="988.34112"
-     inkscape:cy="475.29254"
+     inkscape:zoom="2"
+     inkscape:cx="426.509"
+     inkscape:cy="323.78595"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
@@ -35,9 +35,9 @@
      inkscape:snap-center="false"
      inkscape:snap-bbox="false"
      inkscape:bbox-paths="true"
-     inkscape:window-width="1855"
+     inkscape:window-width="1920"
      inkscape:window-height="1056"
-     inkscape:window-x="65"
+     inkscape:window-x="1920"
      inkscape:window-y="24"
      inkscape:window-maximized="1"
      inkscape:snap-global="false"
@@ -182,7 +182,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -268,7 +268,7 @@
            style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Serif;-inkscape-font-specification:Liberation Serif" /></flowRegion><flowPara
          id="flowPara8314-1"
          style="font-size:24px">Inspector</flowPara></flowRoot>    <flowRoot
-       transform="translate(139.8746,-564.85196)"
+       transform="translate(159.8746,-568.85196)"
        xml:space="preserve"
        id="flowRoot8308-3-9"
        style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Serif;-inkscape-font-specification:Liberation Serif"><flowRegion
@@ -283,7 +283,7 @@
          style="font-size:24px">Array 1</flowPara><flowPara
          style="font-size:24px"
          id="flowPara12617" /></flowRoot>    <flowRoot
-       transform="translate(137.12143,-67.019489)"
+       transform="translate(155.12143,-70.519489)"
        xml:space="preserve"
        id="flowRoot8308-3-9-5"
        style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Serif;-inkscape-font-specification:Liberation Serif"><flowRegion
@@ -439,6 +439,50 @@
          sodipodi:cx="415.15204"
          id="path7258-2"
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.84534395;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="layer1-4"
+       inkscape:label="Layer 1"
+       transform="matrix(0.17797852,0,0,0.17797852,504.62587,201.19476)">
+      <rect
+         y="412.47504"
+         x="98.073181"
+         height="227.41212"
+         width="547.94812"
+         id="rect6748-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:22.47462222;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.93855976,0,0,0.93855976,-19.410087,73.105488)"
+         d="m 588.93665,482.73495 c 0,94.91215 -76.9415,171.85364 -171.85364,171.85364 -94.91215,0 -171.85364,-76.94149 -171.85364,-171.85364 0,-94.91214 76.94149,-171.85363 171.85364,-171.85363 94.91214,0 171.85364,76.94149 171.85364,171.85363 z"
+         sodipodi:ry="171.85364"
+         sodipodi:rx="171.85364"
+         sodipodi:cy="482.73495"
+         sodipodi:cx="417.08301"
+         id="path3754"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:23.94586171;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         sodipodi:type="arc" />
+    </g>
+    <g
+       id="layer1-4-5"
+       inkscape:label="Layer 1"
+       transform="matrix(0.17797852,0,0,0.17797852,502.83993,697.69136)">
+      <rect
+         y="412.47504"
+         x="98.073181"
+         height="227.41212"
+         width="547.94812"
+         id="rect6748-4-6"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:22.47462273;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <path
+         transform="matrix(0.93855976,0,0,0.93855976,-19.410087,73.105488)"
+         d="m 588.93665,482.73495 c 0,94.91215 -76.9415,171.85364 -171.85364,171.85364 -94.91215,0 -171.85364,-76.94149 -171.85364,-171.85364 0,-94.91214 76.94149,-171.85363 171.85364,-171.85363 94.91214,0 171.85364,76.94149 171.85364,171.85363 z"
+         sodipodi:ry="171.85364"
+         sodipodi:rx="171.85364"
+         sodipodi:cy="482.73495"
+         sodipodi:cx="417.08301"
+         id="path3754-1"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:23.94586182;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          sodipodi:type="arc" />
     </g>
   </g>
