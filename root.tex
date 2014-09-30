@@ -34,7 +34,11 @@
                                 %  forces useof  \par at paragraph breaks
 
 \title{\LARGE \bf
-Induction Coupler Motion Primatives
+
+
+
+A New Actuator for On-Orbit Inspection 
+
 }
 
 
@@ -72,9 +76,9 @@ and Mason Peck% <-this % stops a space
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{abstract}
 
-Can you move along a surface in space without propellant or physical contact? On-orbit servicing requires a robot to operate in close proximity to the surface of a target spacecraft in order to inspect, refuel, or repair it.  Robotic operation in close proximity is difficult in space because spacecraft are fragile and often have poorly known, undamped dynamics. Current actuators for locomotion and grasping during on-orbit servicing require physical contact with the target (dangerous), propellant (expensive), or cooperation from the target (often infeasible.)   
+Can you move along a surface in space without propellant or mechanical contact? On-orbit servicing requires a robot to operate in close proximity to the surface of a target spacecraft in order to inspect, refuel, or repair it.  Robotic operation in close proximity is difficult in space because spacecraft are fragile and often have poorly known, undamped dynamics. Current actuators for locomotion and grasping during on-orbit servicing require mechanical contact with the target (dangerous), propellant (expensive), or cooperation from the target (often infeasible.)   
 %
-This paper presents an new actuator - the induction coupler - that generates eddy-current forces between a robotic orbital inspector and the conductive exterior of its target. These forces allow the inspector to crawl along the surface of a target \textit{without physical contact}. Sets of induction couplers composed of spinning arrays of permanent magnets can exert control forces and torques in all six rigid-body degrees of freedom by strategically repelling and shearing across the surface of the target. 
+This paper presents an new actuator - the induction coupler - that generates eddy-current forces between a robotic orbital inspector and the conductive exterior of its target. These forces allow the inspector to crawl along the surface of a target \textit{without mechanical contact}. Sets of induction couplers composed of spinning arrays of permanent magnets can exert control forces and torques in all six rigid-body degrees of freedom by strategically repelling and shearing across the surface of the target. 
 %
 %The induction coupler's ability to generate forces is state dependent: its forces and torques depend both on the relative orientation of the coupler to the surface and the surface's geometry. 
 This paper uses an analytical model of eddy-current forces to simulate the set of manoeuvres necessary to generate the control forces and torques that can move and orient a robotic orbital inspector. Experiments on a low-friction test bed demonstrate a successful implementation of the actuator and verify the manoeuvres.
@@ -88,7 +92,10 @@ This paper uses an analytical model of eddy-current forces to simulate the set o
 \section{Introduction}
 On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task\cite{Coleshill2009}\cite{Ellery2004}\cite{Ellery2008}. Just as on earth, large assets like the International Space Station (ISS) \label{def:ISS} or geostationary satellites experience wear and unexpected problems that require inspection, repair, or refuelling\cite{Moosavian2007}\cite{Saleh2002}. These tasks are well suited for robots because it is less dangerous and expensive to send an inspection vehicle to geostationary orbit or outside the ISS than a human spacewalker\cite{Ambrose2012}. 
 %
-\par Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can physically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target. Grappling has many potential risks in an uncertain, low-friction environment\cite{Nguyen-Huynh2011}. Propellant is expensive and can damage sensitive targets\cite{Markelov2012}. Cooperation is infeasible in many situations because most spacecraft launch without the necessary subsystems: spacecraft are \textit{not} designed to be inspected or repaired by robots.
+\par Manoeuvring close to a target is essential to OOS and is a particularly risky proposition on orbit. 
+%added 9/29
+These actions that don't directly interact with the target can be categorized as 'inspection.' 
+There are presently three methods for an inspector to manoeuvre close to the surface of its target: it can mechanically grapple the surface to pull itself along; it can use propellant and thrusters; or it can use cooperative, non-contacting electromagnetic systems installed both on the inspector and the target. Grappling has many potential risks in an uncertain, low-friction environment\cite{Nguyen-Huynh2011}. Propellant is expensive and can damage sensitive targets\cite{Markelov2012}. Cooperation is infeasible in many situations because most spacecraft launch without the necessary subsystems: spacecraft are \textit{not} designed to be inspected or repaired by robots.
 %
 \par Fortunately, the ISS and most spacecraft are composed of aluminium plates, curves, and beams. By introducing a changing magnetic field, a robotic inspector can induce eddy currents in these non-magnetic but conductive components and use the reaction force between the field and the currents for actuation\cite{Smyth1989}. These eddy-current forces have several terrestrial applications from trash separation \cite{Rem1997} to mag-lev propulsion,\cite{Paudel2012a}\cite{Ohji2007} but have never been used in robotics or orbital contexts. Induction couplers are actuators that utilize these eddy-currents. Their ability to actuate near a target without propellant or mechanical contact can provide a completely new way to perform robotic locomotion and manipulation in space.    
 %
@@ -230,7 +237,7 @@ It is more complicated for induction couplers to produce forces and torques that
 %Rotation  
 \par Using locally tangential forces, the inspector can control rotation about the $\hat{\textbf{y}}$ axis by giving each coupler the same input speed $\omega$. With only two couplers, the torque will always come with a force - a third coupler would make the force and torque independent. 
 
-\section{Simulated Demonstration}\label{sec:simulations}
+\section{Simulation}\label{sec:simulations}
 
 In this section, simulations demonstrate each motion primative - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation. In each case, the simulation constrains the inspector to the plane of interest to demonstrate open-loop motion primatives - in practice, a closed loop controller and more than two couplers are essential to account for motion out of the plane. The model inspector is the size of a small satellite using two motors each with two magnets as induction couplers. The parameters shown in table \ref{table: sim_params} match those used in the experimental demonstrations in section \ref{sec:experiments}.   
 
@@ -305,9 +312,9 @@ In a simulation of planar rotation the inspector rotates commands the same speed
    \end{figure}
 
 \section{Experimental Demonstration}\label{sec:experiments}
-This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays - one to demonstrate planar movement shown in figure \ref{fig:planar_translation_exp_diagram}, one to demonstrate out of plane movement shown in figure \ref{fig:oop_exp_diagram}. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
+This section presents an experimental demonstration of each motion primitive - planar translation, planar rotation, out-of-plane translation, and out-of-plane rotation in an ideal situation. We constructed two prototype inspection vehicles, each with two spinning magnet arrays. One prototype, pictured in  figure \ref{fig:planar_translation_exp_diagram}, demonstrated the planar movement diagrammed in figure \ref{fig:planarsetup}. The other prototype, pictured in  figure \ref{fig:oop_exp_diagram}, demonstrated out-of-plane movement diagrammed in figure \ref{fig:oopsetup}. These inspection vehicles operated on a low-friction air-bearing test bed which allowed them to simulate a space environment with 3 degrees of freedom. 
 
-\par \textbf{Hardware}: The induction couplers were DC hobby gear motors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's heading and position with respect to the tags visible in figures \ref{fig:oop_exp_diagram} and \ref{fig:planar_translation_exp_diagram}. 
+\par \textbf{Hardware}: The induction couplers were Sparkfun Standard gearmotors, each with laser-cut cylinder containing a north and south facing 1/2 inch neodymium magnet. A generic 12V lead-acid battery provided power to the motors, whose power consumption and maximum speed are in table \ref{table: sim_params}. An Arduino microprocessor and Xbee radio enabled remote open-loop commands and handled low-level motor control and a visual tag-based tracking system recorded the vehicle's heading and position with respect to the tags visible in figures \ref{fig:oop_exp_diagram} and \ref{fig:planar_translation_exp_diagram}. 
 
 \par \textbf{Considerations}: The arrays could not be placed symmetrically about the center of mass due to the constraints of the test platform. Similarly, the tracking points could not be located at the center of mass because the target occulted it from the tracking system, because the target plate was mounted directly above the vehicle out of necessity. These constraints mean that the experiments serve as a demonstration of the motion, rather than a full model validation.  
 
