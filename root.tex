@@ -10,7 +10,7 @@
                                                           % you want to use the \thanks command
 
 \overrideIEEEmargins                                      % Needed to meet printer requirements.
-
+\pdfminorversion=4
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
 
@@ -34,7 +34,7 @@
                                 %  forces useof  \par at paragraph breaks
 
 \title{\LARGE \bf
-A New Actuator for Orbital Inspection 
+Induction Coupler Motion Primatives
 }
 
 
@@ -118,7 +118,7 @@ On-orbit servicing (OOS)\label{def:OOS} is a valuable but difficult robotic task
       \caption{Diagram of a single induction coupler array}
       \label{fig:single_array}
    \end{figure}
-\ben{They recommend using a framebox, is this worth it? How do I get rid of the border?}   
+%\ben{They recommend using a framebox, is this worth it? How do I get rid of the border?}   
 \par Maxwell showed that time-varying magnetic field will induce an electric current in nearby conductors. Magnetic fields generate forces on moving currents, so these two effects combine to create eddy-current forces between a source of a changing magnetic field and a conductive surface. Induction couplers can use mechanically moving permanent magnets or time-varying electromagnets to generate a time-varying magnetic field. This paper focuses on the easiest and least power-intensive implementation of the mechanically-moving-magnet variety of induction coupler: a motorized, circular array of magnets. 
 %
 \par Paudel and Bird derived an analytical solution for the force from a single rotating array of permanent magnets near a flat conductor. \cite{Paudel2013} In a reference frame attached to the conductive surface shown in figure \ref{fig:single_array}, the force on the magnet array is
